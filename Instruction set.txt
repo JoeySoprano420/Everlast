@@ -1,0 +1,19 @@
+The x86-64 architecture, also known as x64 or AMD64, is a 64-bit extension of the x86 instruction set architecture. It introduces two operating modes: 64-bit mode and compatibility mode, along with a new four-level paging mechanism.  ￼
+
+In 64-bit mode, x86-64 supports significantly larger amounts of virtual and physical memory compared to its 32-bit predecessors, allowing programs to utilize more memory for data storage. The architecture expands the number of general-purpose registers from 8 to 16, all fully general-purpose, and extends their width to 64 bits.  ￼
+
+Floating-point arithmetic is supported through mandatory SSE2 instructions in 64-bit mode. While the older x87 FPU and MMX registers are still available, they are generally superseded by a set of sixteen 128-bit vector registers (XMM registers). Each of these vector registers can store one or two double-precision floating-point numbers, up to four single-precision floating-point numbers, or various integer formats.  ￼
+
+The x86-64 instruction set includes a wide array of instructions categorized into various types, such as:
+	•	Data Movement Instructions: These instructions move data between registers, memory, and I/O ports. Examples include MOV, PUSH, POP, XCHG, IN, and OUT.
+	•	Arithmetic Instructions: These perform arithmetic operations like addition, subtraction, multiplication, and division. Examples are ADD, SUB, MUL, DIV, INC, and DEC.
+	•	Bitwise Logic Instructions: These instructions perform bitwise operations such as AND, OR, XOR, and NOT. Examples include AND, OR, XOR, and NOT.
+	•	Control Flow Instructions: These manage the flow of execution in a program, including jumps, calls, and returns. Examples are JMP, CALL, RET, JE, JNE, JG, and JL.
+	•	String Operations: These operate on strings of data, such as MOVS, CMPS, SCAS, LODS, and STOS.
+	•	Input/Output Instructions: These handle input and output operations, including IN and OUT.
+	•	Flag Control Instructions: These modify or test the processor’s flags. Examples include STC, CLC, CMC, STD, and CLD.
+	•	System Instructions: These are used for system-level operations like setting up the processor’s state. Examples are HLT, NOP, WAIT, ESC, LOCK, and SIMD instructions like SSE, SSE2, SSE3, SSSE3, SSE4, AVX, and AVX2.
+
+For a comprehensive and detailed reference of the x86-64 instruction set, including mnemonics and summaries, you can consult the “x86 and amd64 instruction reference” by Felix Cloutier.  ￼
+
+This resource provides an extensive list of instructions, their descriptions, and usage, serving as a valuable guide for both beginners and experienced assembly language programmers.
