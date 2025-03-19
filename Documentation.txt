@@ -1,0 +1,375 @@
+In the Everlast programming language, using the Outcome-Driven-Instruction Paradigm (ODI), the syntax is designed to express high-level goals or outcomes in a declarative style. Instead of focusing on the exact steps, the language allows the programmer to define conditions and desired outcomes, which are later translated into hexadecimal and machine code.
+
+Here is an example of how the syntax could be structured:
+
+Basic Syntax Structure
+	1.	Variables and Assignment
+	•	Variables are declared and assigned values using the let keyword. This is followed by the variable name and the assignment operator.
+	•	Example:
+
+let X = 10;
+let Y = 5;
+
+
+	2.	Rules and Logic
+	•	Rules are defined using the rule keyword. A rule defines conditions and outcomes that should be true for the system.
+	•	Rules can involve mathematical operations, logical comparisons, and more.
+	•	Example:
+
+rule IsEven(X) :- X mod 2 == 0;
+
+
+	3.	Queries
+	•	Queries are used to evaluate whether certain rules or conditions hold true.
+	•	Example:
+
+query(IsEven(X));
+
+
+	4.	Operators
+	•	Operators can be used for mathematical and logical operations like +, -, *, /, mod, ==, <, >, <=, >=, and, or, and not.
+	•	Example:
+
+let Z = X + Y;
+rule IsGreaterThan(Z, 10) :- Z > 10;
+
+
+	5.	Control Structures
+	•	Conditional and loop structures can be added. In this case, they are mapped into rules that represent constraints and outcomes.
+	•	Example of conditional:
+
+rule IsGreaterThan(X, Y) :- X > Y;
+rule Result(X) :- IsGreaterThan(X, 5);
+
+
+
+Example Code
+
+Let’s take a look at an example that demonstrates a few concepts together:
+
+// Declare variables
+let X = 10;
+let Y = 5;
+let Z;
+
+// Define a rule to check if X is even
+rule IsEven(X) :- X mod 2 == 0;
+
+// Define a rule to check if X is greater than Y
+rule IsGreaterThan(X, Y) :- X > Y;
+
+// Define a rule to compute the sum of X and Y
+rule Sum(X, Y, Z) :- Z = X + Y;
+
+// Query the results
+query(IsEven(X));
+query(IsGreaterThan(X, Y));
+query(Sum(X, Y, Z));
+
+Breakdown of the Conversion Table:
+	•	let X = 10; could map to:
+	•	let → 0x01
+	•	X → 0x05 (variable)
+	•	= 10 → 0x10 (assignment)
+	•	rule IsEven(X) :- X mod 2 == 0; could map to:
+	•	rule → 0x02
+	•	IsEven(X) → 0xA1 (rule identifier)
+	•	mod → 0xA3
+	•	== → 0x9F
+	•	query(IsEven(X)); could map to:
+	•	query → 0x03
+	•	IsEven(X) → 0xA1
+
+After compiling the code, these higher-level constructs are translated into the corresponding hexadecimal representations and ultimately into machine-readable binary instructions for execution.
+
+Example of a Simple Program in Everlast:
+
+// Declare variables
+let A = 20;
+let B = 15;
+let SumResult;
+
+// Define rule for checking even numbers
+rule IsEven(A) :- A mod 2 == 0;
+
+// Define rule to sum two variables
+rule Sum(A, B, SumResult) :- SumResult = A + B;
+
+// Execute queries
+query(IsEven(A));
+query(Sum(A, B, SumResult));
+
+Output Example:
+
+After parsing the above code, the language would generate the following hexadecimal instructions (for example):
+
+0x01 0x05 0x10   // let A = 20
+0x01 0x06 0x15   // let B = 15
+0x02 0xA1 0xA3 0x05 0x9F 0x00 0xA3 0x00   // rule IsEven(A) :- A mod 2 == 0
+0x02 0xA2 0xA3 0x05 0x06 0x0F 0x10   // rule Sum(A, B, SumResult) :- SumResult = A + B
+0x03 0xA1   // query(IsEven(A))
+0x03 0xA2   // query(Sum(A, B, SumResult))
+
+This will then be converted into bytecode and finally into binary that can be executed by the machine.
+
+Summary of Key Features:
+	1.	Declarative Syntax: The focus is on specifying what needs to happen, not how to do it.
+	2.	Conversion Table: Maps high-level constructs to hexadecimal values that are compiled into efficient binary code.
+	3.	Efficient Execution: The final binary code is optimized for execution by the machine.
+	4.	Human-Readable: The syntax is intuitive and easy to understand, focusing on desired outcomes.
+
+In Everlast, you define your goals (outcomes) and let the language handle the low-level details of execution. This allows for both high-level expressiveness and low-level performance optimization.
+
+The grammar of Everlast, following the Outcome-Driven-Instruction Paradigm (ODI), defines how programs are structured and how the language constructs are translated into machine-readable instructions. The syntax is based on high-level, declarative constructs, where the programmer focuses on describing desired outcomes, not the steps to achieve them.
+
+Here’s a proposed formal grammar for Everlast:
+
+Grammar Overview
+	1.	Program Structure: A program consists of variable declarations, rules, and queries.
+	2.	Variable Declaration: Variables are declared with the let keyword.
+	3.	Rules: Rules define logical constraints, conditions, or transformations.
+	4.	Queries: Queries check the validity of rules or conditions.
+	5.	Expressions: These include arithmetic, logical, and comparison operators.
+
+Grammar Definition (BNF-style)
+
+<program> ::= <declarations> <rules> <queries>
+
+<declarations> ::= <declaration>*
+<declaration> ::= "let" <identifier> "=" <expression> ";"
+
+<rules> ::= <rule>*
+<rule> ::= "rule" <identifier> "(" <identifier-list> ")" ":-" <expression-list> ";"
+
+<queries> ::= <query>*
+<query> ::= "query" "(" <identifier> "(" <identifier-list> ")" ");"
+
+<expression-list> ::= <expression> ("," <expression>)*
+<expression> ::= <arithmetic-expression> | <comparison-expression> | <logical-expression> | <identifier>
+
+<arithmetic-expression> ::= <expression> "+" <expression> 
+                          | <expression> "-" <expression> 
+                          | <expression> "*" <expression> 
+                          | <expression> "/" <expression> 
+                          | <expression> "mod" <expression>
+                          | <number>
+
+<comparison-expression> ::= <expression> "==" <expression>
+                         | <expression> "<" <expression>
+                         | <expression> ">" <expression>
+                         | <expression> "<=" <expression>
+                         | <expression> ">=" <expression>
+
+<logical-expression> ::= <expression> "and" <expression> 
+                     | <expression> "or" <expression>
+                     | "not" <expression>
+
+<identifier> ::= <letter> (<letter> | <digit>)*
+<letter> ::= "a" | "b" | "c" | ... | "z" | "A" | "B" | ... | "Z"
+<digit> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+<number> ::= <digit>+
+<identifier-list> ::= <identifier> ("," <identifier>)*
+
+Explanation of Grammar Components:
+	1.	Program Structure (<program>):
+	•	A program consists of declarations, rules, and queries, defined in order.
+	2.	Declarations (<declarations>):
+	•	A declaration defines a variable with the let keyword. Variables are assigned values using expressions.
+	•	Syntax: let <identifier> = <expression>;
+	3.	Rules (<rules>):
+	•	A rule defines a logical statement or constraint. The syntax follows the form rule <identifier>(<identifier-list>) :- <expression-list>;, where:
+	•	<identifier> is a rule name or variable.
+	•	<expression-list> is a comma-separated list of expressions (conditions).
+	•	A rule is a logical consequence of other expressions (e.g., X mod 2 == 0).
+	4.	Queries (<queries>):
+	•	A query asks whether a rule or condition holds true. Syntax: query(<identifier>(<identifier-list>));.
+	5.	Expressions (<expression>):
+	•	Expressions are evaluated and used within rules and queries.
+	•	There are three primary types of expressions:
+	•	Arithmetic expressions: Operations like addition, subtraction, multiplication, division, and modulo (+, -, *, /, mod).
+	•	Comparison expressions: Operations like equality (==), greater than (>), less than (<), and other comparison operators.
+	•	Logical expressions: Boolean operations like AND (and), OR (or), and NOT (not).
+	6.	Identifiers and Variables:
+	•	An identifier is a name for variables, rules, or functions, which can consist of letters and digits (e.g., X, IsEven).
+
+Example Code and Corresponding Grammar
+
+Example 1: Variable Declaration
+
+let X = 10;
+
+	•	Grammar Match:
+	•	<declaration> → let <identifier> = <expression> ;
+	•	<identifier> → X
+	•	<expression> → 10 (a number)
+
+Example 2: Rule Definition
+
+rule IsEven(X) :- X mod 2 == 0;
+
+	•	Grammar Match:
+	•	<rule> → rule <identifier> (<identifier-list>) :- <expression-list> ;
+	•	<identifier> → IsEven
+	•	<identifier-list> → X
+	•	<expression-list> → X mod 2 == 0
+	•	<expression> → X mod 2
+	•	<expression> → 0
+
+Example 3: Query
+
+query(IsEven(X));
+
+	•	Grammar Match:
+	•	<query> → query (<identifier> (<identifier-list>)) ;
+	•	<identifier> → IsEven
+	•	<identifier-list> → X
+
+Grammar Breakdown Example
+
+let A = 10;
+let B = 20;
+let SumResult;
+
+rule Sum(A, B, SumResult) :- SumResult = A + B;
+
+query(Sum(A, B, SumResult));
+
+	•	Decomposition:
+	1.	Declarations:
+	•	let A = 10; (variable A is assigned 10)
+	•	let B = 20; (variable B is assigned 20)
+	•	let SumResult; (variable SumResult is declared but not assigned yet)
+	2.	Rules:
+	•	rule Sum(A, B, SumResult) :- SumResult = A + B; (defines a rule named Sum to sum A and B)
+	3.	Queries:
+	•	query(Sum(A, B, SumResult)); (queries the result of the Sum rule)
+
+Conclusion
+
+The grammar defines the structure and syntax of Everlast, focusing on a declarative approach where programmers express desired outcomes. These outcomes are later translated into machine code, making Everlast a high-level, yet efficient language for defining logical conditions, rules, and queries.
+
+The semantics of Everlast provide the meaning behind the syntax. In this context, we are defining how the language constructs behave when executed or evaluated. The semantics of Everlast include the meaning of variables, expressions, rules, and queries, as well as how they are evaluated in the Outcome-Driven-Instruction Paradigm (ODI). Below is the detailed breakdown of the semantics for Everlast.
+
+1. Variable Declaration Semantics
+
+A variable declaration in Everlast assigns a value to a variable using the let keyword. The variable holds the result of the evaluated expression.
+
+Example:
+
+let X = 10;
+
+	•	Semantics:
+The variable X is created and initialized with the value 10. The expression on the right-hand side (10) is evaluated, and the value is stored in memory under the name X.
+
+2. Rule Semantics
+
+A rule defines a logical relationship between variables or expressions. It serves as a constraint or condition that is evaluated when queried. The evaluation of a rule follows the Outcome-Driven-Instruction Paradigm (ODI), where outcomes (i.e., the truth or falsity of conditions) drive the program flow.
+
+Example:
+
+rule IsEven(X) :- X mod 2 == 0;
+
+	•	Semantics:
+The rule IsEven(X) specifies that X is even if X mod 2 == 0. The rule is evaluated by checking whether the modulo of X and 2 equals zero, which means the outcome is true if X is even.
+
+Evaluation Steps:
+	1.	The rule IsEven(X) is evaluated with a given X.
+	2.	The expression X mod 2 == 0 is evaluated.
+	3.	If the result is true, the rule IsEven(X) succeeds; otherwise, it fails.
+
+3. Query Semantics
+
+A query is a request for the evaluation of a rule or condition. It asks whether a certain rule or condition holds true for the provided values.
+
+Example:
+
+query(IsEven(X));
+
+	•	Semantics:
+The query asks whether the rule IsEven(X) holds true for the value of X. The evaluation involves checking if X satisfies the conditions defined in the rule IsEven(X).
+
+Evaluation Steps:
+	1.	The query IsEven(X) is invoked.
+	2.	The rule IsEven(X) is evaluated with the value of X.
+	3.	If X mod 2 == 0 evaluates to true, the query succeeds (meaning X is even). If false, the query fails (meaning X is not even).
+
+4. Expression Semantics
+
+Expressions in Everlast include arithmetic, comparison, and logical operations. The semantics of these expressions dictate how they are evaluated and how they influence the flow of the program.
+
+Arithmetic Expressions:
+	•	Example: X + Y, X mod 2, A * B
+	•	Semantics:
+	•	Addition (+): Evaluates the sum of two numbers.
+	•	Modulo (mod): Evaluates the remainder when one number is divided by another.
+	•	Multiplication (*): Evaluates the product of two numbers.
+
+Comparison Expressions:
+	•	Example: X == 10, Y < Z, A >= B
+	•	Semantics:
+	•	Equality (==): Checks if two values are equal.
+	•	Greater Than (>): Checks if the left operand is greater than the right operand.
+	•	Less Than (<): Checks if the left operand is less than the right operand.
+	•	Greater Than or Equal To (>=): Checks if the left operand is greater than or equal to the right operand.
+
+Logical Expressions:
+	•	Example: X and Y, not X, X or Y
+	•	Semantics:
+	•	Logical AND (and): Evaluates to true if both operands are true.
+	•	Logical OR (or): Evaluates to true if at least one operand is true.
+	•	Logical NOT (not): Reverses the truth value of the operand.
+
+5. Evaluation of Expressions
+
+Expressions in Everlast are evaluated based on the type of expression they are (arithmetic, comparison, or logical). The result of evaluating an expression influences the evaluation of rules and queries.
+
+Example:
+
+let X = 15;
+let Y = 20;
+rule IsGreaterThan(X, Y) :- X > Y;
+query(IsGreaterThan(X, Y));
+
+	•	Semantics:
+	1.	Variable Assignment:
+	•	X is assigned the value 15.
+	•	Y is assigned the value 20.
+	2.	Rule Evaluation:
+	•	The rule IsGreaterThan(X, Y) is evaluated with X = 15 and Y = 20.
+	•	The expression X > Y evaluates to false (since 15 is not greater than 20).
+	3.	Query Evaluation:
+	•	The query IsGreaterThan(X, Y) asks if X > Y.
+	•	Since the rule evaluates to false, the query fails.
+
+6. Outcome-Driven Semantics (ODI)
+
+In Everlast, the program flow is primarily driven by the evaluation outcomes (success or failure) of rules and queries, rather than by traditional imperative constructs (like loops or conditionals).
+	•	Evaluation:
+	•	Rules are triggered by queries, and their conditions are evaluated to check if they are true.
+	•	If the evaluation of a rule’s conditions is true, the rule succeeds, and the program continues based on that outcome.
+	•	If the evaluation of a rule’s conditions is false, the rule fails, and the program may backtrack to try another path (depending on the implementation).
+
+7. Control Flow and Backtracking
+
+Since Everlast follows an outcome-driven logic, the flow of control depends on the success or failure of the conditions:
+	•	Success: If a rule or condition evaluates to true, the program continues.
+	•	Failure: If a rule or condition evaluates to false, the program either backtracks to find an alternative solution or halts.
+
+8. Example Program Semantics
+
+let X = 5;
+let Y = 10;
+
+rule IsSumEven(X, Y, Sum) :- Sum = X + Y, Sum mod 2 == 0;
+
+query(IsSumEven(X, Y, Sum));
+
+	•	Semantics:
+	1.	X is assigned 5 and Y is assigned 10.
+	2.	The rule IsSumEven(X, Y, Sum) computes Sum = X + Y, which evaluates to 15.
+	3.	The rule then checks Sum mod 2 == 0. Since 15 mod 2 != 0, the condition fails.
+	4.	The query IsSumEven(X, Y, Sum) evaluates the rule. Since the rule fails, the query returns false.
+
+Conclusion
+
+The semantics of Everlast define how each construct behaves during evaluation and execution. By focusing on outcome-driven evaluation and using declarative rules and queries, Everlast allows for a high-level, logic-based approach to problem solving. The semantics of Everlast center on evaluating conditions, with program flow determined by the success or failure of these conditions.
