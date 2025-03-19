@@ -1,0 +1,196 @@
+Indentation, Spacing, and Punctuation in Everlast
+
+Everlast follows a structured formatting style to ensure clarity, consistency, and efficiency when converting high-level code into hexadecimal, assembly, and binary execution.
+
+⸻
+
+1. Indentation
+
+Everlast enforces consistent indentation using four spaces per level (no tabs).
+
+Example:
+
+func main() {
+    printf("Hello, World!\n");
+    return 0;
+}
+
+	•	The function body is indented by four spaces inside {}.
+	•	Nested structures (loops, conditionals, function calls) follow the same rule.
+
+Why?
+	•	Ensures clear structure for conversion to hexadecimal and assembly.
+	•	Helps with readability and debugging.
+
+⸻
+
+2. Spacing Rules
+
+A. Spaces Around Operators
+
+Spaces are mandatory around assignment (=), arithmetic (+, -, *, /), and logical (&&, ||, ==, !=) operators.
+
+✔ Correct:
+
+let x = 10;
+if (x == 5) {
+    x = x + 1;
+}
+
+❌ Incorrect:
+
+let x=10;
+if(x==5){
+    x=x+1;
+}
+
+Why?
+	•	Avoids ambiguity during lexing and conversion to hexadecimal.
+	•	Ensures parsing into Abstract Syntax Tree (AST) is efficient.
+
+⸻
+
+B. No Spaces Before/After Parentheses
+
+Function calls, conditionals, and loops must not have spaces before or after parentheses.
+
+✔ Correct:
+
+if (x > 5) {
+    printf("Greater than 5\n");
+}
+
+❌ Incorrect:
+
+if ( x > 5 ) {   // ❌ Spaces inside ()
+    printf( "Greater than 5\n" ); // ❌ Spaces inside function call
+}
+
+Why?
+	•	The parser treats unnecessary spaces as syntax errors.
+
+⸻
+
+C. Spaces After Commas
+
+For readability, Everlast requires a space after each comma.
+
+✔ Correct:
+
+printf("X: %d, Y: %d\n", x, y);
+
+❌ Incorrect:
+
+printf("X: %d,Y: %d\n",x,y);
+
+Why?
+	•	Helps tokenization distinguish function parameters cleanly.
+
+⸻
+
+3. Punctuation
+
+A. Semicolons (;)
+
+Every statement must end with a semicolon (;), including:
+	•	Variable declarations
+	•	Function calls
+	•	Return statements
+	•	Expressions inside loops or conditionals
+
+✔ Correct:
+
+let x = 10;
+printf("Value: %d\n", x);
+return 0;
+
+❌ Incorrect:
+
+let x = 10   // ❌ Missing semicolon
+printf("Value: %d\n", x)   // ❌ Missing semicolon
+return 0
+
+Why?
+	•	Prevents ambiguity during lexical analysis.
+	•	Allows seamless translation to hexadecimal instructions.
+
+⸻
+
+B. Braces ({})
+	•	Opening { must be on the same line as function/loop/conditional.
+	•	Closing } must be on a new line, at the same indentation level as the block’s start.
+
+✔ Correct:
+
+func example() {
+    if (x > 5) {
+        printf("X is greater than 5\n");
+    }
+}
+
+❌ Incorrect:
+
+func example() 
+{   // ❌ Opening brace must be on same line
+    if (x > 5) 
+    {   // ❌ Opening brace must be on same line
+        printf("X is greater than 5\n"); }
+}  // ❌ Closing brace should be on a new line
+
+Why?
+	•	This ensures compatibility with the conversion table.
+	•	Makes it easier to parse into assembly.
+
+⸻
+
+C. Parentheses (())
+
+Used for:
+	1.	Function Calls
+	•	Required, even for functions without arguments.
+
+func say_hello() {
+    printf("Hello\n");
+}
+
+
+	2.	Conditionals and Loops
+	•	Mandatory for if, while, and for.
+
+if (x > 5) {
+    printf("X is big\n");
+}
+
+
+
+⸻
+
+D. Quotes ("")
+	•	Double quotes ("") are mandatory for string literals.
+	•	Escape sequences (\n, \t, etc.) are supported.
+
+✔ Correct:
+
+printf("Hello, World!\n");
+
+❌ Incorrect:
+
+printf('Hello, World!\n'); // ❌ Uses single quotes
+
+Why?
+	•	Consistent with bytecode translation rules.
+	•	Ensures compatibility with hexadecimal encoding.
+
+⸻
+
+Conclusion
+
+Feature	Rule
+Indentation	4 spaces per level
+Spacing	Spaces around operators, after commas, but not inside ()
+Semicolons	Required at the end of every statement
+Braces {}	Open on the same line, close on a new line
+Parentheses ()	Required for functions, loops, and conditionals
+Quotes ""	Double quotes for strings
+
+Everlast’s formatting ensures smooth parsing, efficient conversion to hexadecimal, and clean translation into assembly and binary execution.
