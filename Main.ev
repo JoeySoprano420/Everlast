@@ -1,8 +1,8 @@
-Here’s a simple Everlast program that prints "Hello, World!" to the console.
+# Here’s a simple Everlast program that prints "Hello, World!" to the console.
 
 ⸻
 
-Everlast Source Code
+# Everlast Source Code
 
 extern printf;
 
@@ -15,15 +15,15 @@ func main() {
 
 ⸻
 
-Lexing Output (Hexadecimal Representation)
+# Lexing Output (Hexadecimal Representation)
 
 0x10 0x20 0x30 0x40 0x50 0x60
 
-(This depends on the ConversionTable.txt mappings.)
+# (This depends on the ConversionTable.txt mappings.)
 
 ⸻
 
-Parsing Output (x64 Assembly)
+# Parsing Output (x64 Assembly)
 
 section .data
     message db "Hello, World!", 0
@@ -44,7 +44,7 @@ main:
 
 ⸻
 
-Machine Code Output
+# Machine Code Output
 
 0x55
 0x48 0x89 0xE5
@@ -54,11 +54,11 @@ Machine Code Output
 0x5D
 0xC3
 
-(Binary output optimized for execution.)
+# (Binary output optimized for execution.)
 
 ⸻
 
-Execution
+/* Execution
 
 This program:
 	1.	Declares an external reference to printf.
@@ -68,4 +68,4 @@ This program:
 	•	Returns 0 (exit status).
 	3.	Compiles directly to machine code and executes.
 
-This showcases Everlast’s minimal abstraction while maintaining structured programmability.
+This showcases Everlast’s minimal abstraction while maintaining structured programmability. */
